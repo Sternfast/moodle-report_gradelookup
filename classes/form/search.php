@@ -116,7 +116,18 @@ class search extends \moodleform {
             'llr-daterange form-inline');
         $mform->addElement('static', 'daterange', get_string('daterange', 'report_gradelookup'), $daterow);
 
-        $mform->addElement('submit', 'go', get_string('searchbutton', 'report_gradelookup'));
+        // Search, plus a Clear button that resets every facet back to the empty state.
+        // Clear is a plain link to the base report URL (a GET form's "no parameters"
+        // state), so it needs no JavaScript and works with the back button. It appears
+        // only when there is something to clear.
+        $buttons = [$mform->createElement('submit', 'go', get_string('searchbutton', 'report_gradelookup'))];
+        if (!empty($this->_customdata['hasselection'])) {
+            $clearurl = new \moodle_url('/report/gradelookup/index.php');
+            $buttons[] = $mform->createElement('static', 'clearbtn', '',
+                \html_writer::link($clearurl, get_string('clearfilters', 'report_gradelookup'),
+                    ['class' => 'btn btn-outline-secondary', 'role' => 'button']));
+        }
+        $mform->addGroup($buttons, 'buttonar', '', ' ', false);
 
         $mform->addElement('html', \html_writer::end_div());
     }

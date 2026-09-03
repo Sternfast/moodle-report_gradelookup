@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'report_gradelookup';   // Full frankenstyle name.
-$plugin->version   = 2026090205;               // YYYYMMDDXX.
+$plugin->version   = 2026090300;               // YYYYMMDDXX.
 $plugin->requires  = 2023100900;               // Moodle 4.3 LTS baseline (core AJAX user selector + core_user\fields).
 $plugin->supported = [403, 500];               // Tested on 4.3 LTS line through 5.0.
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.4.0';
+$plugin->release   = '1.4.1';

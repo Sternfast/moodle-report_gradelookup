@@ -332,8 +332,16 @@ $form = new search_form($baseurl->out(false), [
     'canpickusers' => $canpickusers,
     'datefrom'     => $datefromiso,
     'dateto'       => $datetoiso,
+    // Something is selected (a filter, a drilled-into record/course, or a date) — drives
+    // whether the form shows a Clear button.
+    'hasselection' => $hasfilter || $userid || $courseid || $datefromiso !== '' || $datetoiso !== '',
 ], 'get');
-$form->set_data(['userids' => $userids, 'courseids' => $courseids, 'cohortids' => $cohortids]);
+// When drilled into a single learner's record (or a course grade breakdown), reflect
+// that selection in the search form, so it's clear whose record is shown rather than
+// leaving the learner/course pickers looking empty.
+$formuserids   = $userids   ?: ($userid   ? [$userid]   : []);
+$formcourseids = $courseids ?: ($courseid ? [$courseid] : []);
+$form->set_data(['userids' => $formuserids, 'courseids' => $formcourseids, 'cohortids' => $cohortids]);
 $form->display();
 
 /**
@@ -681,36 +689,27 @@ if ($userid && $courseid) {
         return $mkurl($p);
     };
 
-    $chipcount = 0;
     echo html_writer::start_div('report-gradelookup-chips');
     foreach ($userids as $uid) {
         $u = \core_user::get_user($uid, '*', IGNORE_MISSING);
         $renderchip(get_string('chip_learner', 'report_gradelookup', $u ? s(fullname($u)) : '#' . $uid),
             $removeurl('user', $uid));
-        $chipcount++;
     }
     foreach ($courseids as $cid) {
         $cname = $DB->get_field('course', 'fullname', ['id' => $cid]);
         $renderchip(get_string('chip_course', 'report_gradelookup',
             $cname !== false ? format_string($cname) : '#' . $cid), $removeurl('course', $cid));
-        $chipcount++;
     }
     foreach ($cohortids as $chid) {
         $chname = $DB->get_field('cohort', 'name', ['id' => $chid]);
         $renderchip(get_string('chip_cohort', 'report_gradelookup',
             $chname !== false ? format_string($chname) : '#' . $chid), $removeurl('cohort', $chid));
-        $chipcount++;
     }
     if ($datefromiso !== '' || $datetoiso !== '') {
         $renderchip(get_string('chip_dates', 'report_gradelookup',
             (object)['from' => $datefromiso !== '' ? $datefromiso : '…',
                      'to' => $datetoiso !== '' ? $datetoiso : '…']),
             $removeurl('dates', 0));
-        $chipcount++;
-    }
-    if ($chipcount > 1) {
-        echo html_writer::link($baseurl, get_string('clearfilters', 'report_gradelookup'),
-            ['class' => 'llr-clearall']);
     }
     echo html_writer::end_div();
 
