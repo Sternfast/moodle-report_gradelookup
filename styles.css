@@ -1,0 +1,163 @@
+/* Grade Lookup report styles. Scoped to the report's own wrappers so they
+   never leak into or conflict with core or other plugin styling. */
+
+/* The unified search form: keep it to a comfortable reading width. */
+.report-gradelookup-searchform {
+    max-width: 46rem;
+    margin-bottom: .5rem;
+}
+
+/* Tighten the moodleform rows and keep the autocomplete/date fields a sane width. */
+.report-gradelookup-searchform .fitem {
+    margin-bottom: .35rem;
+}
+
+.report-gradelookup-searchform .felement {
+    max-width: 36rem;
+}
+
+/* Collapse the autocomplete's empty "selection" strip so an unused picker is not a
+   tall block of whitespace above its own search box. It grows to fit chosen chips. */
+.report-gradelookup-searchform .form-autocomplete-selection {
+    min-height: 0;
+    margin: 0 0 .2rem;
+    padding: 0;
+}
+
+.report-gradelookup-searchform .form-autocomplete-selection:empty {
+    margin: 0;
+}
+
+.report-gradelookup-searchform .llr-daterange {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .35rem;
+}
+
+.report-gradelookup-searchform .llr-daterange input[type="date"] {
+    max-width: 12rem;
+}
+
+/* Active-filter chips shown above the results. */
+.report-gradelookup-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+    margin: .5rem 0 1rem;
+}
+
+.report-gradelookup-chips .llr-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    background: rgba(0, 0, 0, .06);
+    border-radius: 1rem;
+    padding: .2rem .75rem;
+    font-size: .9em;
+}
+
+.report-gradelookup-chips .llr-chip-x {
+    text-decoration: none;
+    font-weight: 700;
+    line-height: 1;
+    color: #495057;
+}
+
+.report-gradelookup-chips .llr-chip-x:hover,
+.report-gradelookup-chips .llr-chip-x:focus {
+    color: #c0392b;
+}
+
+.report-gradelookup-chips .llr-clearall {
+    font-size: .9em;
+    margin-left: .25rem;
+}
+
+.report-gradelookup-empty {
+    max-width: 44rem;
+}
+
+/* Compact aggregate summary — a row of stat tiles above the results list. */
+.report-gradelookup-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin: .25rem 0 1rem;
+}
+
+.report-gradelookup-stats .llr-stat {
+    flex: 1 1 8.5rem;
+    min-width: 8.5rem;
+    padding: .6rem .9rem;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: .5rem;
+    background: rgba(0, 0, 0, .015);
+}
+
+.report-gradelookup-stats .llr-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.report-gradelookup-stats .llr-stat-label {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    opacity: .7;
+    margin-top: .15rem;
+}
+
+.report-gradelookup-stats .llr-stat-sub {
+    font-size: .78rem;
+    opacity: .6;
+    margin-top: .1rem;
+}
+
+.report-gradelookup-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: .25rem;
+}
+
+.llr-groupsummary-label {
+    margin: .75rem 0 .25rem;
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+.report-gradelookup-record .llr-header {
+    margin: 1.5rem 0 .25rem 0;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.report-gradelookup-record .llr-actions {
+    white-space: nowrap;
+}
+
+.report-gradelookup-table {
+    margin-top: .5rem;
+}
+
+.report-gradelookup-table td,
+.report-gradelookup-table th {
+    vertical-align: middle;
+}
+
+.report-gradelookup-table .badge {
+    font-size: .85em;
+    font-weight: 600;
+}
+
+/* The course-total row in the grade-detail breakdown. */
+.report-gradelookup-table tr.llr-coursetotal td {
+    border-top: 2px solid #adb5bd;
+    background-color: rgba(0, 0, 0, .03);
+}
