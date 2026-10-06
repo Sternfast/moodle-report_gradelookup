@@ -1,0 +1,9 @@
+name: CI
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  moodle-plugin-ci:
+    uses: Sternfast/moodle-ci/.github/workflows/plugin-ci.yml@main
